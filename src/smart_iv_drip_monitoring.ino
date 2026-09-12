@@ -2,26 +2,30 @@
 #include <LiquidCrystal_I2C.h>
 #include "HX711.h"
 
-// ---------------- PIN CONFIGURATION ----------------
+// ================= PIN CONFIGURATION =================
 #define HX711_DOUT 4
 #define HX711_SCK  5
 #define BUZZER_PIN 18
 
-// ---------------- OBJECTS ----------------
-HX711 scale;
-LiquidCrystal_I2C lcd(0x27, 20, 4);
+// ================= LCD CONFIGURATION =================
+#define LCD_ADDRESS 0x27
+#define LCD_COLUMNS 20
+#define LCD_ROWS 4
 
-// ---------------- SETTINGS ----------------
-// Adjust this value after calibrating your load cell.
+// ================= MONITORING SETTINGS =================
+// Replace this value after calibrating the load cell.
 float calibration_factor = -7050.0;
 
-// Minimum weight considered safe.
-// Change this according to your IV bag and project setup.
+// Minimum acceptable measured weight in grams.
 float lowLevelThreshold = 100.0;
 
-// ---------------------------------------------------
+// ================= OBJECTS =================
+HX711 scale;
+LiquidCrystal_I2C lcd(LCD_ADDRESS, LCD_COLUMNS, LCD_ROWS);
 
+// ================= SETUP =================
 void setup() {
+
   Serial.begin(115200);
 
   pinMode(BUZZER_PIN, OUTPUT);
@@ -40,26 +44,30 @@ void setup() {
 
   // Initialize HX711
   scale.begin(HX711_DOUT, HX711_SCK);
+
   scale.set_scale(calibration_factor);
   scale.tare();
 
   lcd.clear();
   lcd.setCursor(0, 0);
-  lcd.print("System Ready");
-  delay(1000);
+  lcd.print("SYSTEM READY");
+  delay(1500);
 }
 
+// ================= MAIN LOOP =================
 void loop() {
 
+  // Read average of 5 measurements
   float weight = scale.get_units(5);
 
-  // Prevent small negative readings
+  // Prevent negative readings
   if (weight < 0) {
     weight = 0;
   }
 
+  // Display reading in Serial Monitor
   Serial.print("IV Weight: ");
-  Serial.print(weight);
+  Serial.print(weight, 1);
   Serial.println(" g");
 
   lcd.clear();
@@ -72,7 +80,7 @@ void loop() {
   lcd.print(weight, 1);
   lcd.print(" g");
 
-  // ---------------- NORMAL CONDITION ----------------
+  // ================= NORMAL CONDITION =================
   if (weight > lowLevelThreshold) {
 
     digitalWrite(BUZZER_PIN, LOW);
@@ -85,7 +93,7 @@ void loop() {
 
   }
 
-  // ---------------- LOW FLUID CONDITION ----------------
+  // ================= LOW FLUID CONDITION =================
   else {
 
     digitalWrite(BUZZER_PIN, HIGH);
