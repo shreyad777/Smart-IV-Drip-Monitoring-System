@@ -1,3 +1,13 @@
+<div align="center">
+
+# Smart IV Drip Monitoring and Alert System
+
+### Weight-Based IV Fluid Level Monitoring and Alert System
+
+</div>
+
+---
+
 # Smart IV Drip Monitoring and Alert System
 
 A smart healthcare assistance system designed to continuously monitor the fluid level of an IV drip by measuring the weight of the IV fluid bag and providing an immediate alert when the fluid level becomes critically low.
@@ -9,6 +19,15 @@ During IV fluid administration, healthcare staff need to periodically check the 
 The Smart IV Drip Monitoring and Alert System addresses this problem by continuously monitoring the weight of the IV fluid bag. A load cell measures the weight, while the HX711 module processes the load-cell signal and sends the data to an ESP32. The ESP32 evaluates the measured weight and displays the current status on a 20×4 I2C LCD. When the fluid level falls below a predefined threshold, an audible buzzer alert is activated.
 
 The system is designed as a simple, low-cost and non-invasive monitoring solution that can help healthcare staff identify low IV fluid levels promptly.
+
+## Project Highlights
+
+- 🏥 Designed for healthcare assistance and IV fluid monitoring
+- ⚖️ Monitors IV bag weight continuously
+- 🔔 Provides an immediate audible warning for low fluid levels
+- 📟 Displays real-time status on a 20×4 LCD
+- 🔧 Built using commonly available hardware components
+- 💡 Designed as a simple, low-cost prototype
 
 ## Key Features
 
