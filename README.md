@@ -1,14 +1,8 @@
 <div align="center">
 
 # Smart IV Drip Monitoring and Alert System
-
-### Weight-Based IV Fluid Level Monitoring and Alert System
-
 </div>
 
----
-
-# Smart IV Drip Monitoring and Alert System
 
 A smart healthcare assistance system designed to continuously monitor the fluid level of an IV drip by measuring the weight of the IV fluid bag and providing an immediate alert when the fluid level becomes critically low.
 
